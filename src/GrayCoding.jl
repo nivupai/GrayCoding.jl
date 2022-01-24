@@ -6,8 +6,36 @@ using Gadfly
 # Write your package code here.
 """
 Generate Encoding and Decoding matrices for Gray Codes of alphabet.
+    ```julia-repl
+    julia> G,B,g,b=GrayMatrix(4, 2);
+    julia> G
+    4×4 Matrix{Int64}:
+    1  0  0  0
+    1  1  0  0
+    1  1  1  0
+    1  1  1  1
+    julia> B
+    4×4 Matrix{Int64}:
+    1  0  0  0
+    1  1  0  0
+    0  1  1  0
+    0  0  1  1
+    julia> g 
+    4×16 Matrix{Int64}:
+    0  0  0  0  0  0  0  0  1  1  1  1  1  1  1  1
+    0  0  0  0  1  1  1  1  0  0  0  0  1  1  1  1
+    0  0  1  1  0  0  1  1  0  0  1  1  0  0  1  1
+    0  1  0  1  0  1  0  1  0  1  0  1  0  1  0  1
+    julia> b 
+    4×16 Matrix{Int64}:
+    0  0  0  0  0  0  0  0  1  1  1  1  1  1  1  1
+    0  0  0  0  1  1  1  1  1  1  1  1  0  0  0  0
+    0  0  1  1  1  1  0  0  0  0  1  1  1  1  0  0
+    0  1  1  0  0  1  1  0  0  1  1  0  0  1  1  0
+
+    ```
 """
-function GrayMatrix(n::Int64, q::Int64)
+function GrayMatrix(n::Int64=3, q::Int64=2)
     M = q^n
     G = Array(Bidiagonal(ones(1, n)[:], (q - 1) * ones(1, n - 1)[:], :L))
     B = mod.(inv(G), q)

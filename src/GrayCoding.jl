@@ -25,8 +25,10 @@ end
 """
 Plots a matrix into a 2D with labels. Optional arguments including colors
 ```julia-repl
-julia> using Random;A= rand(0:9,10,10);matrixplot(A)
-``
+julia> using Random;
+julia> A= rand(0:9,10,10);
+julia> matrixplot(A)
+```
 """
 function matrixplot(A;kwargs...)
     a,b=size(A)

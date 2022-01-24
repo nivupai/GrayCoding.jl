@@ -22,6 +22,12 @@ function GrayMatrix(n::Int64, q::Int64)
     return B, G, b, g
 end
 
+"""
+Plots a matrix into a 2D with labels. Optional arguments including colors
+```julia-repl
+julia> using Random;A= rand(0:9,10,10);matrixplot(A)
+``
+"""
 function matrixplot(A;kwargs...)
     a,b=size(A)
     X = transpose(repeat(1:b, 1, a))[:]
@@ -29,7 +35,12 @@ function matrixplot(A;kwargs...)
     Gadfly.plot(x = X, y = Y, Geom.rectbin(),  color = A,alpha=[0.5], Coord.cartesian(fixed = true), Theme(bar_spacing = 0.1cm), Geom.label(position = :centered), label = string.(A)[:], Theme(key_position = :none, grid_line_width = 0pt, panel_stroke = nothing), Guide.xticks(ticks = nothing, label = false), Guide.yticks(ticks = nothing, label = false), Guide.xlabel(nothing), Guide.ylabel(nothing);kwargs...)
 end
 
-
+"""
+Plot the DNA codon matrix
+```julia-repl
+julia> dnamatrix()
+```
+"""
 function dnamatrix()
 	U = [(x,y) for x ∈ 0:7, y ∈ 0:7]
 	B,G,b,g=GrayMatrix(3,2)
@@ -46,6 +57,12 @@ function dnamatrix()
 	return DM,VM,AA,Vx,Vy,DNA
 end
 
+"""
+Decimal to binary conversion
+```julia-repl
+julia> dec2bin(10,7)
+```
+"""
 function dec2bin(x,n)
 	a=digits.(x,base=2,pad=n)  # left-lsb
 # a=digits.(x,base=2,pad=num_bits)|> reverse  # left-msb
@@ -54,7 +71,10 @@ b=hcat(a...);
 end
 
 """
-Binary to decimal number conversion
+Binary to decimal number conversion. Input can be 
+-   binary strings, 
+-   binary digits or 
+-   a vector of binary string or digits
 ```julia-repl
 julia> bin2dec([011,"0111",0111])
 ```
@@ -64,6 +84,10 @@ bin2dec(x::AbstractVector)  = parse(Int,string(x...),base=2)
 bin2dec(x::Int64)  = parse(Int,string(x),base=2)
 bin2dec(x::AbstractString) = parse(Int,x,base=2)
 
+"""
+Pulse amplitude modulation (PAM) mapping. This is a type of digital modulation mapping used in Communication systems.
+
+"""
 function pam_encode(x,M)
 	# M --> M-QAM
 	n=Int(ceil(log2(M)/2))
@@ -75,6 +99,9 @@ function pam_encode(x,M)
 	return y
 end
 
+"""
+Generate Gray vectors
+"""
 function gen_gray(m)
 	x=[0 1]
 	for i in 2:m
@@ -84,6 +111,9 @@ function gen_gray(m)
 	return x[:]
 end
 
+"""
+Decimal to binary conversion
+"""
 function dec2bin(x,n)
 	a=digits.(x,base=2,pad=n)  # left-lsb
 # a=digits.(x,base=2,pad=num_bits)|> reverse  # left-msb

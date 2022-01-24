@@ -5,7 +5,7 @@ using Gadfly
 
 # Write your package code here.
 """
-Generate Encoding and Decoding matrices for Gray Codes of alphabet ``q \in \mathbb{Z}`` of length ``n``.
+Generate Encoding and Decoding matrices for Gray Codes of alphabet.
 """
 function GrayMatrix(n::Int64, q::Int64)
     M = q^n

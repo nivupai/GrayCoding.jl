@@ -24,4 +24,26 @@ q-1-g_{i} , & \text{if} \mod\left(\displaystyle \sum_{j=1}^{i-1}{g_{j}},2\right)
 
 and ``d_{1} = g_{1}``.
 
-TBD
+# Linear Algebraic Formulation (N.Rethnakar 2020)
+The generator matrix ``G`` for decimal to gray mapping is given by,
+``
+G=\begin{pmatrix}  1   &  {\color{gray}0 } &   {\color{gray}0 }    &  {\color{gray}0 }  &   {\color{gray}0 }   &   {\color{gray}0 }  \\
+    1 &    1 &    {\color{gray}0 }  &    {\color{gray}0 }   &   {\color{gray}0 }     & {\color{gray}0 }  \\
+     {\color{gray}0 }   &  1  &   1 &    {\color{gray}0 }   &   {\color{gray}0 }   &  {\color{gray}0 }  \\
+    {\color{gray}0 }  &    {\color{gray}0 }  &   1 &    1  &   {\color{gray}0 }    &  {\color{gray}0 }  \\
+    {\color{gray}0 }  &   {\color{gray}0 }  &    {\color{gray}0 }  &   1  &   1     &{\color{gray}0 }  \\
+    {\color{gray}0 }  &    {\color{gray}0 }  &   {\color{gray}0 }   &   {\color{gray}0 }   &  1    & 1 \end{pmatrix}
+  ``  
+
+  The decoding matrix ``B=G^{-1}`` is given by,
+
+  ``
+  B=\begin{pmatrix}   1   &  {\color{gray}0 } &   {\color{gray}0 }    &  {\color{gray}0 }  &   {\color{gray}0 }   &   {\color{gray}0 }  \\
+    1 &    1 &    {\color{gray}0 }  &    {\color{gray}0 }   &   {\color{gray}0 }     & {\color{gray}0 }  \\
+     1  &  1  &   1 &    {\color{gray}0 }   &   {\color{gray}0 }   &  {\color{gray}0 }  \\
+    1 &    1 &   1 &    1  &   {\color{gray}0 }    &  {\color{gray}0 }  \\
+     1 &   1 &    1 &   1  &   1     &{\color{gray}0 }  \\
+1 &    1 &   1  &   1  &  1    & 1 \end{pmatrix}
+``
+
+

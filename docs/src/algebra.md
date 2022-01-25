@@ -30,10 +30,10 @@ Example of generator matrix ``G`` for binary to gray mapping is given by,
 ```math
 G=\begin{pmatrix} 1 &  0  &  0 &  0  &  0 &  0  \\
  1  &  1  & 0 & 0 & 0 & 0  \\
- 0  &  1  & 1 & 0 & 0 & 0  \\
- 0  &  0  & 1 & 1 & 0 & 0  \\
- 0  &  0  & 0 & 1 & 1 & 0  \\
- 0  &  0  & 0 & 0 & 1 & 1 \end{pmatrix}
+ {\color{gray}0}  &  1  & 1 & 0 & 0 & 0  \\
+ {\color{gray}0}  &  {\color{gray}0}  & 1 & 1 & 0 & 0  \\
+ {\color{gray}0}  &  {\color{gray}0}  & 0 & 1 & 1 & 0  \\
+ {\color{gray}0}  &  {\color{gray}0}  & 0 & 0 & 1 & 1 \end{pmatrix}
 ```
 
 

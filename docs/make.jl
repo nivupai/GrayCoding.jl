@@ -2,7 +2,7 @@ using GrayCoding
 using Documenter
 
 DocMeta.setdocmeta!(GrayCoding, :DocTestSetup, :(using GrayCoding); recursive=true)
-
+push!(LOAD_PATH,"../src/")
 makedocs(;
     modules=[GrayCoding],
     authors="Nivedita Rethnakar et al.",
@@ -15,6 +15,9 @@ makedocs(;
     ),
     pages=[
         "Home" => "index.md",
+        "Algebra of Gray Codes" => "algebra.md",
+        "Applications of Gray Codes" => "applications.md",
+        "Tutorials" => "tutorials.md",
     ],
 )
 

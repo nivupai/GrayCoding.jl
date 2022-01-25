@@ -27,7 +27,7 @@ and ``d_{1} = g_{1}``.
 # Linear Algebraic Formulation (N.Rethnakar 2020)
 Example of generator matrix ``G`` for binary to gray mapping is given by,
 ``
-G=\begin{pmatrix} 1 &  0 } &  0 }&  0 } &  0 }&  0 }  \\
+G=\begin{pmatrix} 1 &  0  &  0 &  0  &  0 &  0   \\
  1   &  1  & 0 & 0 & 0 & 0   \\
  0   &  1  & 1 & 0 & 0 & 0   \\
  0   &  0  & 1 & 1 & 0 & 0   \\

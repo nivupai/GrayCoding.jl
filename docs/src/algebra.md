@@ -49,3 +49,14 @@ G=\begin{pmatrix} 1 &  {\color{gray}0}   &  {\color{gray}0}  &  {\color{gray}0} 
 ```
 
 
+### ``q``ry Gray Code
+
+
+```math
+G=\begin{pmatrix} 1 &  {\color{gray}0}  &  {\color{gray}0}  &  {\color{gray}0}  &  {\color{gray}0}  &  {\color{gray}0}  \\
+ q-1  &  1  & {\color{gray}0}  & {\color{gray}0}  & {\color{gray}0}  & {\color{gray}0}  \\
+ {\color{gray}0}  &  q-1  & 1 & {\color{gray}0}  & {\color{gray}0}  & {\color{gray}0}  \\
+ {\color{gray}0}  &  {\color{gray}0}  & q-1 & 1 & {\color{gray}0}  & {\color{gray}0}  \\
+ {\color{gray}0}  &  {\color{gray}0}  & {\color{gray}0}  & q-1 & 1 & {\color{gray}0}  \\
+ {\color{gray}0}  &  {\color{gray}0}  & {\color{gray}0}  & {\color{gray}0}  & q-1 & 1 \end{pmatrix}
+```

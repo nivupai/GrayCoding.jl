@@ -1,4 +1,4 @@
-#Algebraic framework of Gray Codes
+# Algebraic framework of Gray Codes
 
 
 The classical algorithmic procedure of encoding and decoding are as follows:

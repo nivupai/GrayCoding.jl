@@ -49,7 +49,7 @@ G=\begin{pmatrix} 1 &  {\color{gray}0}   &  {\color{gray}0}  &  {\color{gray}0} 
 ```
 
 
-### ``q``ry Gray Code
+### Generalized ``q``-ry Gray Code
 
 
 ```math
@@ -63,5 +63,5 @@ G=\begin{pmatrix} 1 &  {\color{gray}0}  &  {\color{gray}0}  &  {\color{gray}0}  
  {\color{gray}0}  &  -1  & 1 & {\color{gray}0}  & {\color{gray}0}  & {\color{gray}0}  \\
  {\color{gray}0}  &  {\color{gray}0}  & -1 & 1 & {\color{gray}0}  & {\color{gray}0}  \\
  {\color{gray}0}  &  {\color{gray}0}  & {\color{gray}0}  & -1 & 1 & {\color{gray}0}  \\
- {\color{gray}0}  &  {\color{gray}0}  & {\color{gray}0}  & {\color{gray}0}  & -1 & 1 \end{pmatrix}_{\mathbf{F}_{q}}
+ {\color{gray}0}  &  {\color{gray}0}  & {\color{gray}0}  & {\color{gray}0}  & -1 & 1 \end{pmatrix}_{\mathbb{F}_{q}}
 ```

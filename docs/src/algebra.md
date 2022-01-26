@@ -58,5 +58,10 @@ G=\begin{pmatrix} 1 &  {\color{gray}0}  &  {\color{gray}0}  &  {\color{gray}0}  
  {\color{gray}0}  &  q-1  & 1 & {\color{gray}0}  & {\color{gray}0}  & {\color{gray}0}  \\
  {\color{gray}0}  &  {\color{gray}0}  & q-1 & 1 & {\color{gray}0}  & {\color{gray}0}  \\
  {\color{gray}0}  &  {\color{gray}0}  & {\color{gray}0}  & q-1 & 1 & {\color{gray}0}  \\
- {\color{gray}0}  &  {\color{gray}0}  & {\color{gray}0}  & {\color{gray}0}  & q-1 & 1 \end{pmatrix}
+ {\color{gray}0}  &  {\color{gray}0}  & {\color{gray}0}  & {\color{gray}0}  & q-1 & 1 \end{pmatrix} \equiv \begin{pmatrix} 1 &  {\color{gray}0}  &  {\color{gray}0}  &  {\color{gray}0}  &  {\color{gray}0}  &  {\color{gray}0}  \\
+ -1  &  1  & {\color{gray}0}  & {\color{gray}0}  & {\color{gray}0}  & {\color{gray}0}  \\
+ {\color{gray}0}  &  -1  & 1 & {\color{gray}0}  & {\color{gray}0}  & {\color{gray}0}  \\
+ {\color{gray}0}  &  {\color{gray}0}  & -1 & 1 & {\color{gray}0}  & {\color{gray}0}  \\
+ {\color{gray}0}  &  {\color{gray}0}  & {\color{gray}0}  & -1 & 1 & {\color{gray}0}  \\
+ {\color{gray}0}  &  {\color{gray}0}  & {\color{gray}0}  & {\color{gray}0}  & -1 & 1 \end{pmatrix}_{\mathbf{F}_{q}}
 ```

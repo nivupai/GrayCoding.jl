@@ -146,8 +146,24 @@ Decimal to binary conversion
 function dec2bin(x,n)
 	a=digits.(x,base=2,pad=n)  # left-lsb
 # a=digits.(x,base=2,pad=num_bits)|> reverse  # left-msb
-b=hcat(a...);
+    b=hcat(a...);
 	return b
+end
+
+"""
+Recursive function to illustrate the reflection+shift property of Gray mapping.
+### Arguents
+* n - The iteration number `n ≥ 0`
+* C - The decimal sequence of the gray mapped bits
+* R - The reflected sequence (without shifting)
+```julia-repl
+julia> C,R = gray_recursion(4)
+```
+"""
+function gray_recursion(n::Int)
+C= n < 1 ? [0] : vcat(gray_rec(n - 1)[1:end], gray_rec(n - 1)[end:-1:1] .+Int(exp2(n-1)) )
+	R= n < 1 ? 0 : vcat(C[1:2^(n-1)],C[1+2^(n-1):end] .- Int(exp2(n-1)))
+	return C,R
 end
 
 end

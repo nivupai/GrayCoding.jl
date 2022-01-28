@@ -161,9 +161,18 @@ julia> C,R = gray_recursion(4)
 ```
 """
 function gray_recursion(n::Int)
-C= n < 1 ? [0] : vcat(gray_recursion(n - 1)[1:end], gray_recursion(n - 1)[end:-1:1] .+Int(exp2(n-1)) )
-	R= n < 1 ? 0 : vcat(C[1:2^(n-1)],C[1+2^(n-1):end] .- Int(exp2(n-1)))
-	return C,R
+    C= n < 1 ? [0] : vcat(gray_recursion(n - 1)[1:end], gray_recursion(n - 1)[end:-1:1] .+ Int(exp2(n-1)) )
+	return C
 end
+
+"""
+Reflected code. 
+```julia-repl
+julia>reflect_code(3)
+[0,1,3,2,2,3,1,0]
+```
+"""
+reflect_code(n)= n<1 ? [0] : vcat(gray_recursion(n-1),reverse(gray_recursion(n-1)))
+
 
 end

@@ -8,11 +8,17 @@
 
 Reflect ``C[n-1]``, shift by ``q^{n-1}`` and augment (TBD).
 
-Gray code ``g[n]`` can be recursively constructed as follows.
-Start with ``g[1] = (0,1)`` and for ``N=2^n, n \ge 1``,
-Let ``g[n] = \left(x_{1},\ldots,x_{N−1},x_{N}\right)``, 
+
+For ``n \in \mathbb{N}``, positive integer and ``N = 2^{n}``. A Gray code ``G_{n}`` is an tuple ``G_{n} = (X_{1},X_{2},...,X_{N})`` which satisfies the following properties:
+* ``X_{1}, X_{2}, ... , X_{N}`` are binary sequences (of length ``n``) corresponding to the binary representation of the numbers ``0, 1, \ldots , N − 1``, arranged in a specific order,
+*  For any `` 0 \le j \le N-1``, adjacent pairs ``X_{j},X_{j+1}`` differ in only one position (i.e., only one of the ``n`` bits would differ),
+* The start and end sequences (i.e., sequences ``X_{1}`` and ``X_{N}`` differ in just one position.
+
+Gray code ``G_{n}`` can be recursively constructed as follows.
+Start with ``G_{1} = (0,1)`` and for ``N=2^n, n \ge 1``,
+Let ``G_{n} = \left(X_{1},\ldots,X_{N−1},X_{N}\right)``, 
 ```math
-g[n+1] = \left(0x_{1},\ldots,0x_{N−1},0x_{N},1x_{N},1g_{N−1},...,1x_{1}\right).
+G_{n+1} = \left(0X_{1},\ldots,0X_{N−1},0X_{N},1X_{N},1X_{N−1},...,1X_{1}\right).
 ```
 
 ## Illustration
@@ -29,8 +35,13 @@ julia> plotmatrix(G,size=(800,400),color=:summer)
 julia> plotmatrix(G,size=(800,200),color=:summer,markersize=7,xlims=[1,size(G,2)+0],ylims=[1/2,size(G,1)-0])
 end
 ```
+#### Binary Gray Code ``n=4``
 ![](./assets/gray4plot.svg)
+
+#### Binary Gray Code ``n=5``
 ![](./assets/gray5plot.svg)
+
+#### Binary Gray Code ``n=6``
 ![](./assets/gray6plot.svg)
 
 ## Linear Algebraic method

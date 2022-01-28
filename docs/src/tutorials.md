@@ -29,7 +29,8 @@ julia> plotmatrix(G,size=(800,400),color=:summer)
 julia> plotmatrix(G,size=(800,200),color=:summer,markersize=7,xlims=[1,size(G,2)+0],ylims=[1/2,size(G,1)-0])
 end
 ```
-
+![](./assets/gray4plot.svg)
+![](./assets/gray5plot.svg)
 ![](./assets/gray6plot.svg)
 
 ## Linear Algebraic method

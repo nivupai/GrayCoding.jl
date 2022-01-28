@@ -195,7 +195,7 @@ julia> gray(3)
  0  1  1  0  1  1  0  0
 ```
 """
-function gray1(n)
+function gray(n)
     n < 2 ? [0 1] : hcat(vcat(0,gray(n-1)),vcat(1,reverse(gray(n-1))))
 end
 end

@@ -10,8 +10,8 @@ Reflect ``C[n-1]``, shift by ``q^(n-1)`` and augment.
 
 Gray code ``g[n]`` can be recursively constructed as follows.
 Start with ``g[1] = (0,1)`` and for ``N=2^n, n \ge 1``,
-Let ``g[n] = (X1,...,XN−1,XN)``, 
-```
+Let ``g[n] = \left(x_{1},\ldots,x_{N−1},x_{N}\right)``, 
+```math
 g[n+1] = \left(0x_{1},\ldots,0x_{N−1},0x_{N},1x{N},1g_{N−1},...,1x_{1}\right).
 ```
 ## Linear Algebraic method

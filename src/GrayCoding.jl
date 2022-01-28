@@ -175,4 +175,24 @@ julia>reflect_code(3)
 reflect_code(n)= n<1 ? [0] : vcat(gray_recursion(n-1),reverse(gray_recursion(n-1)))
 
 
+
+"""
+Recursive construction of binary Gray code digits.
+
+Gray code ``g[n]`` can be recursively constructed as follows.
+Start with ``g[1] = (0,1)`` and for ``N=2^n, n \ge 1``,
+Let ``g[n] = \left(x_{1},\ldots,x_{N−1},x_{N}\right)``, 
+```math
+g[n+1] = \left(0x_{1},\ldots,0x_{N−1},0x_{N},1x_{N},1g_{N−1},...,1x_{1}\right).
+```
+
+```julia-repl
+julia> gray(3)
+3×8 Matrix{Int64}:
+ 0  0  0  0  1  1  1  1
+ 0  0  1  1  0  1  1  0
+ 0  1  1  0  1  1  0  0
+```
+"""
+gray(n) = n < 2 ? [0 1] : hcat(vcat(0,gray(n-1)),vcat(1,reverse(gray(n-1))))
 end

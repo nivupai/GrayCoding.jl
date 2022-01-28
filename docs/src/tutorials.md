@@ -1,5 +1,8 @@
 # Examples
 
+## Recursive construction
+![][./assets/gray_recursion2.svg]
+
 TBD
 ``g=Gb`` and ``b=Bg``, where ``G`` is a Jordan matrix, which is 
 

@@ -6,6 +6,9 @@
 ### Recursive procedure
 ![](./assets/gray_recursion1.svg)
 
+Reflect ``C[n-1]``, shift by ``q^(n-1)`` and augment.
+
+## Linear Algebraic method
 TBD
 ``g=Gb`` and ``b=Bg``, where ``G`` is a Jordan matrix, which is 
 

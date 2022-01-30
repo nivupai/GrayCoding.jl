@@ -7,4 +7,4 @@
 * Music/Puzzles
 
 ## Quantum Circuits
-include("./quantum.md")
+include("./../quantum.md")

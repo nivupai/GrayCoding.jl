@@ -6,5 +6,4 @@
 * Digital Electronics/Counters
 * Music/Puzzles
 
-## Quantum Circuits
-include("./../quantum.md")
+

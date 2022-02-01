@@ -16,7 +16,10 @@ makedocs(;
     pages=[
         "Home" => "index.md",
         "Algebra of Gray Codes" => "algebra.md",
-        "Applications of Gray Codes" => "applications.md",
+        "Applications" => [
+            "List of Applications" => "applications.md",
+            "Quantum Algorithms and Circuits" => "quantum.md"
+        ],
         "Tutorials" => "tutorials.md",
     ],
 )

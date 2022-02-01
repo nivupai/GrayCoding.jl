@@ -11,7 +11,7 @@ Any arbitrary unitary gate acting on n-qubit can be implemented as a cascade of 
  CNOT stands for Controlled-NOT, which is one of the key quantum logic gate. It is a two qubit gate. The gate flips the second qubit (called the target qubit) when the first gate (the control gate) is ``\lvert 1 \rangle``, while the target qubit remain unchanged when the control gate is in state ``\lvert 0 \rangle``.
 
  ```math
- U_{\text{CNOT}} &= \lvert 0 \rangle \otimes \langle 0 \rvert \otimes \begin{bmatrix} 1 & 0 \\ 0 & 1 \end{bmatrix} + \lvert 1 \rangle \otimes \langle 1 \rvert \otimes \begin{bmatrix} 1 & 0 \\ 0 & 1 \end{bmatrix}\\
+ U_{\text{CNOT}} = \lvert 0 \rangle \otimes \langle 0 \rvert \otimes \begin{bmatrix} 1 & 0 \\ 0 & 1 \end{bmatrix} + \lvert 1 \rangle \otimes \langle 1 \rvert \otimes \begin{bmatrix} 1 & 0 \\ 0 & 1 \end{bmatrix}\\
  ```
 
 ---

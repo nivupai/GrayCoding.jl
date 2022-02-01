@@ -13,7 +13,7 @@ Any arbitrary unitary gate acting on n-qubit can be implemented as a cascade of 
  ```math
  \begin{aligned}
  U_{\text{CNOT}} &= \lvert 0 \rangle \otimes \langle 0 \rvert \otimes \begin{bmatrix} 1 & 0 \\ 0 & 1 \end{bmatrix} + \lvert 1 \rangle \otimes \langle 1 \rvert \otimes \begin{bmatrix} 1 & 0 \\ 0 & 1 \end{bmatrix}\\
-                 & = \lvert 0 \rangle \langle 0 \rvert \otimes \begin{bmatrix} 1 & 0 \\ 0 & 1 \end{bmatrix} + \lvert 1 \rangle  \langle 1 \rvert \otimes \begin{bmatrix} 1 & 0 \\ 0 & 1 \end{bmatrix}\\
-                 &=& \begin{bmatrix} 1 & 0 & 0 & 0 \\ 0 & 1 & 0 & 0 \\ 0 & 0 & 0 & 1 \\ 0 & 0 & 1 & 0\end{bmatrix} 
+                 &= \lvert 0 \rangle \langle 0 \rvert \otimes \begin{bmatrix} 1 & 0 \\ 0 & 1 \end{bmatrix} + \lvert 1 \rangle  \langle 1 \rvert \otimes \begin{bmatrix} 1 & 0 \\ 0 & 1 \end{bmatrix}\\
+                 &= \begin{bmatrix} 1 & 0 & 0 & 0 \\ 0 & 1 & 0 & 0 \\ 0 & 0 & 0 & 1 \\ 0 & 0 & 1 & 0\end{bmatrix} 
  \end{aligned}
  ```

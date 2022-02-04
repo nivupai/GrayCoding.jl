@@ -370,7 +370,19 @@ C  = \\prod_{i=1}^{n-1} \\prod_{j=0}^{n-1-i}{ {}^{i}G_{n-j,n-j-1}}
 ```julia-repl
 julia> using LinearAlgebra
 julia> N=4;A=rand(N,N)+im*rand(N,N);S=svd(A);U=S.U
+4×4 Matrix{ComplexF64}:
+  -0.4-0.06im   0.23-0.73im  -0.03-0.14im   0.39-0.27im
+ -0.61-0.32im   0.07+0.06im   0.32+0.02im  -0.64-0.08im
+ -0.38-0.33im  -0.48+0.38im  -0.07-0.4im    0.46+0.07im
+  -0.2-0.26im  -0.09-0.14im   -0.7+0.47im  -0.09+0.38im
 julia> Gc,Ic=Gcascaded(U)
+4×4 Matrix{ComplexF64}:
+ 1.0+0.0im   0.0+0.0im  -0.0+0.0im   0.0-0.0im
+ 0.0+0.0im   1.0-0.0im   0.0+0.0im  -0.0-0.0im
+ 0.0-0.0im  -0.0+0.0im   1.0+0.0im   0.0+0.0im
+ 0.0-0.0im  -0.0+0.0im   0.0-0.0im   0.4-0.9im
+julia> det(A)
+0.4166084175706718 - 0.9090860390575042im
 ```
 """
 function Gcascaded(U)
@@ -383,6 +395,7 @@ function Gcascaded(U)
 	Ic=Gc*U
 	return Gc,Ic
 end
+
 
 
 end

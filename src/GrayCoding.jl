@@ -198,4 +198,95 @@ julia> gray(3)
 function gray(n)
     n < 2 ? [0 1] : hcat(vcat(0,gray(n-1)),vcat(1,reverse(gray(n-1))))
 end
+
+"""
+Find the Givens embedding ``{}^{i}G_{j,k}(A)``
+"""
+function G(A,i,j,k)
+	n = size(A,2)
+	G = Matrix(1.0I(n).+0im)
+	α = A[k,i]
+	β = A[j,i]
+	
+	Γ0 = [ α' β'
+	      -β  α ]
+	N = norm(Γ0[1,:],2);
+	Γ = Γ0./N
+
+    # Embed the Givens matrix Γ in G
+	G[k,k] = Γ[1,1]
+	G[k,j] = Γ[1,2]
+	G[j,k] = Γ[2,1]
+	G[j,j] = Γ[2,2]
+	
+	return G,G*A
+end
+
+"""
+Given unitary matrux ``U(n) \\in S(2^n)``, it uses a a repeated Givens rotations to get a to level matrix as follows.
+
+```math
+\\prod_{j=1}^{n-2}{ {}^{1}G_{n-j,n-j-1} U(n)}  = \\begin{pmatrix} 1 & 0 \\\\ 0 & U(n-1)\\end{pmatrix}
+```
+
+### Parameters 
+* U -- Input. Unitary matrix of size ``2^n``
+* V -- Output unitary matrix in two level form `[1 0;0 U']` form where `U'` is a unitary matrix of size ``2^{n-1}``.
+* GG -- The ``n-2`` sequence of Given matrices (in augmented form) ``[{}^{1}G_{n}\\lvert{}^{1}G_{n-1}\\lvert\\ldots\\lvert{}^{1}G_{2}]``
+
+### Examples
+```julia-repl
+julia> level2unitary(U)
+```
+"""
+function level2unitary(U)
+	n=size(U,2)
+	V=I(n)*U;
+	GG=Matrix(I(n))
+	for i=1:1
+		for j=0:n-1-i
+			G0,V=G(V,i,n-j,n-j-1)
+			GG=[GG;G0]
+		end
+	end
+	return GG[n+1:end,:],V
+end
+
+"""
+Decomposition of aribtrary unitary matrix ``U(n) \\in S(2^n)``, as a cascade of two level Givens matrices.
+
+Using the following property,
+```math
+\\prod_{j=0}^{n-1}{ {}^{1}G_{n-j,n-j-1} U(n)}  = \\begin{pmatrix} 1 & 0 \\\\ 0 & U(n-1)\\end{pmatrix}
+```
+
+```math
+\\prod_{i=1}^{n-1} \\prod_{j=0}^{n-1-i}{ {}^{i}G_{n-j,n-j-1} U(n)}  = \\begin{pmatrix} 1 & \\ldots & 0 \\\\ \\vdots & \\ddots & \\vdots \\\\ 0 & \\ldots & \\det()\\end{pmatrix}
+```
+
+
+### Parameters 
+* U -- Input. Unitary matrix of size ``2^n``
+* V -- Output unitary matrix in two level form `[1 0;0 U']` form where `U'` is a unitary matrix of size ``2^{n-1}``.
+* Gm -- The ``(n-2)(n-1)`` sequence of Given matrices (in augmented form) ``[{}^{1}G_{n}\\lvert{}^{1}G_{n-1}\\lvert\\ldots\\lvert{}^{1}G_{2}\\lvert {}^{2}G_{n}\\lvert{}^{2}G_{n-1}\\lvert\\ldots\\lvert{}^{2}G_{3}\\lvert\\ldots\\lvert{}^{n-2}G_{n}\\lvert{}^{n-2}G_{n-1}\\lvert{}^{n-1}G_{n}]``
+
+### Examples
+```julia-repl
+julia> Gn(U)
+```
+"""
+function Gn(A)
+	n=size(A,2)
+	V=I(n)*A;
+	Gm=Matrix(I(n))
+	for i=1:n-1
+		for j = 0:n-1-i
+			G1,V = G(V,i,n-j,n-j-1)
+			Gm   = [Gm ; G1]
+		end
+	end
+	return Gm[n+1:end,:],V
+	
+end
+
 end

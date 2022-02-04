@@ -1,3 +1,10 @@
+# Quantum Computing
+Broadly stated, the term quantum computation comprieses of the following three elements:
+* A register or a set of registers,
+* A unitary matrix ``U``, as an abstract representation of the quantum algorithm,
+* Measurements to extract the information of interest.
+
+As a mathematial abstraction, a quantum computation is the set ``\{\mathcal{H},U,\{Mm\}\}``, where ``H = \mathbb{C}^{2^{n}}`` is the Hilbert space of an ``n-``qubit register, ``U \in U\left(2^{n}\right)`` represents the quantum algorithm and ``\{M_{m}\}`` is the set of measurement operators. The hardware circuitry along with equipment to control and manipulate the qubits is called a quantum computer.
 # Decomposition of Quantum Gates
 
 ## Universal Decomposition

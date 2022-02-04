@@ -320,6 +320,9 @@ Using the following property,
 * U -- Input. Unitary matrix of size ``2^n``
 * V -- Output unitary matrix in two level form `[1 0;0 U']` form where `U'` is a unitary matrix of size ``2^{n-1}``.
 * Gm -- The ``(n-2)(n-1)`` sequence of Given matrices (in augmented form) ``[{}^{1}G_{n}\\lvert{}^{1}G_{n-1}\\lvert\\ldots\\lvert{}^{1}G_{2}\\lvert {}^{2}G_{n}\\lvert{}^{2}G_{n-1}\\lvert\\ldots\\lvert{}^{2}G_{3}\\lvert\\ldots\\lvert{}^{n-2}G_{n}\\lvert{}^{n-2}G_{n-1}\\lvert{}^{n-1}G_{n}]``
+* Gs -- The ``(n-2)(n-1)`` sequence of Given matrices (in augmented form) left to right ``[ {}^{n-1}G_{n} \\lvert {}^{n-2}G_{n-1} \\lvert {}^{n-2}G_{n} \\lvert \\ldots \\lvert {}^{2}G_{3} \\lvert \\ldots \\lvert {}^{2}G_{n-1} \\lvert {}^{2}G_{n}  \\lvert{}^{1}G_{2} \\lvert \\ldots \\lvert {}^{1}G_{n-1} \\lvert {}^{1}G_{n} ]``  
+
+
 
 ### Examples
 ```julia-repl
@@ -332,13 +335,15 @@ function Gn(A)
 	n=size(A,2)
 	V=I(n)*A;
 	Gm=Matrix(I(n))
+	Gs=Matrix(I(n))
 	for i=1:n-1
 		for j = 0:n-1-i
 			G1,V = GivensG(V,i,n-j,n-j-1)
 			Gm   = [Gm ; G1]
+			Gs   = [G1 ; Gs]
 		end
 	end
-	return Gm[n+1:end,:],V
+	return V,Gm[n+1:end,:],Gs[1:end-n,:]
 	
 end
 

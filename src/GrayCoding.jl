@@ -223,6 +223,57 @@ function G(A,i,j,k)
 end
 
 """
+Find the matrix which has a Givens matrix embedding ``{}^{i}G_{j,k}(A)``.
+
+For a given matrix ``A``, a generic rotation matrix ``{}^{i}G_{j,k}(A)`` is generated. The matrix ``{}^{i}G_{j,k}(A)`` is such that it helps to selectively nullifies an element of matrix ``V={}^{i}G_{j,k}(A) A``. That is, ``V_{j,i}=0`` where ``V={}^{i}G_{j,k}(A) A``.  The fllowing Givens rotation matrix ``{}^{i}\\Gamma_{j,k}``
+
+```math
+\\begin{aligned}
+{}^{i}\\Gamma_{j,k} &= \\begin{pmatrix} {}^{i}g_{k,k} & {}^{i}g_{k,j} \\\\ {}^{i}g_{j,k} & {}^{i}g_{j,j}\\end{pmatrix} \\\\
+&=\\frac{1}{\\sqrt{\\lvert a_{j,i} \\rvert^{2}+ \\lvert a_{k,i} \\rvert^{2}}}\\begin{pmatrix} a_{k,i}^{*} & a_{j,i}^{*} \\\\ -a_{j,i} & {}^{i}a_{k,i}\\end{pmatrix}.
+\\end{aligned}
+```
+
+is embedded in an identity matrix ``I(n)`` to produce,
+```math
+{}^{i}G_{j,k}(A) = \\begin{pmatrix} 
+1 & 0 & \\ldots & \\ldots & \\ldots & \\ldots & \\ldots & \\ldots & 0 \\\\ 
+0 & 1 & \\ddots & \\ddots & \\ddots & \\ddots & \\ddots & \\ddots & \\vdots \\\\
+\\vdots & \\ddots & \\ddots & \\ddots & \\ddots & \\ddots & \\ddots & \\ddots & \\vdots \\\\
+0 & 0 & \\ddots & {\\color{red} {}^{i}g_{k,k}} & \\ddots &  {\\color{red} {}^{i}g_{k,j}} & \\ddots & \\ddots & \\vdots \\\\
+\\vdots & \\ddots & \\ddots & \\ddots & \\ddots \\ddots & & \\ddots & \\ddots & \\vdots \\\\
+0 & 0 & \\ddots & {\\color{red}  {}^{i}g_{j,k}} & \\ddots &  {\\color{red} 
+ {}^{i}g_{j,j}} & \\ddots & \\ddots & \\vdots \\\\
+\\vdots & \\ddots & \\ddots & \\ddots & \\ddots & \\ddots & \\ddots & \\ddots & \\vdots \\\\
+0 & 0 & \\ldots & \\ldots & \\ldots & \\ldots & \\ldots & 1 & 0  \\\\
+0 & 0 & \\ldots & \\ldots & \\ldots & \\ldots & \\ldots & \\ldots & 1 
+\\end{pmatrix}.
+```
+Essentially, ``{}^{i}G_{j,k}(A)`` is a modified identity matrix such that four non trivial elements are taken from the givens rotation matrix ``{}^{i}\\Gamma_{j,k}``.
+
+
+"""
+function GivensG(A,i,j,k)
+	n = size(A,2)
+	G = Matrix(1.0I(n).+0im)
+	α = A[k,i]
+	β = A[j,i]
+	
+	Γ0 = [ α' β'
+	      -β  α ]
+	N = norm(Γ0[1,:],2);
+	Γ = Γ0./N
+
+    # Embed the Givens matrix Γ in G
+	G[k,k] = Γ[1,1]
+	G[k,j] = Γ[1,2]
+	G[j,k] = Γ[2,1]
+	G[j,j] = Γ[2,2]
+	
+	return G,G*A
+end
+
+"""
 Given unitary matrux ``U(n) \\in S(2^n)``, it uses a a repeated Givens rotations to get a to level matrix as follows.
 
 ```math
@@ -245,7 +296,7 @@ function level2unitary(U)
 	GG=Matrix(I(n))
 	for i=1:1
 		for j=0:n-1-i
-			G0,V=G(V,i,n-j,n-j-1)
+			G0,V=GivensG(V,i,n-j,n-j-1)
 			GG=[GG;G0]
 		end
 	end
@@ -272,6 +323,8 @@ Using the following property,
 
 ### Examples
 ```julia-repl
+julia> using LinearAlgebra
+julia> N=4;A=rand(N,N)+im*rand(N,N);S=svd(A);U=S.U
 julia> Gn(U)
 ```
 """
@@ -281,7 +334,7 @@ function Gn(A)
 	Gm=Matrix(I(n))
 	for i=1:n-1
 		for j = 0:n-1-i
-			G1,V = G(V,i,n-j,n-j-1)
+			G1,V = GivensG(V,i,n-j,n-j-1)
 			Gm   = [Gm ; G1]
 		end
 	end

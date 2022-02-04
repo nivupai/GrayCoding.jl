@@ -312,9 +312,9 @@ Using the following property,
 ```
 
 ```math
-\\prod_{i=1}^{n-1} \\prod_{j=0}^{n-1-i}{ {}^{i}G_{n-j,n-j-1} U(n)}  = \\begin{pmatrix} 1 & \\ldots & 0 \\\\ \\vdots & \\ddots & \\vdots \\\\ 0 & \\ldots & \\det(U)\\end{pmatrix}
+\\prod_{i=1}^{n-1} \\prod_{j=0}^{n-1-i}{ {}^{i}G_{n-j,n-j-1} U(n)}  = \\begin{pmatrix} 1 & \\ldots & 0 \\\\ \\vdots & \\ddots & \\vdots \\\\ 0 & \\ldots & \\det(U)\\end{pmatrix}.
 ```
-
+There are ``2^{n-1}(2^{n}-1)`` number of unitary two-level matrices (each of them formed by embedding a Givens rotaton matrix into indentity matrix). Note that ``\\sum_{i=1}^{2^{n}}{N-i}=2^{n-1}(2^{n}-1)``.
 
 ### Parameters 
 * U -- Input. Unitary matrix of size ``2^n``
@@ -348,14 +348,14 @@ function Gn(A)
 end
 
 """
-For a given unitary matrix ``U``, it finds the cascaded rotation matrix ``C`` such that ``C\\times U =I``, except for the diagonal element of the ``n``th element which is ``\\det(U)``. The matrix ``C`` is obtained by the cascade of several two level Givens rotation matrices, namely,
+For a given unitary matrix ``U``, it finds the cascaded rotation matrix ``C`` such that ``C\\times U =I``, except for the diagonal element of the ``n``th element which is ``\\det(U)``. The matrix ``C`` is obtained by the cascade of several (i.e., ``2^{n-1}(2^{n}-1)``) two level Givens rotation matrices, namely,
 
 ```math
 C  = \\prod_{i=1}^{n-1} \\prod_{j=0}^{n-1-i}{ {}^{i}G_{n-j,n-j-1}}
 ```
 
 ```math
-\\prod_{i=1}^{n-1} \\prod_{j=0}^{n-1-i}{ {}^{i}G_{n-j,n-j-1} U(n)}  = \\begin{pmatrix} 1 & \\ldots & 0 \\\\ \\vdots & \\ddots & \\vdots \\\\ 0 & \\ldots & \\det(U)\\end{pmatrix}
+\\prod_{i=1}^{n-1} \\prod_{j=0}^{n-1-i}{ {}^{i}G_{n-j,n-j-1} U(n)}  = \\begin{pmatrix} 1 & \\ldots & 0 \\\\ \\vdots & \\ddots & \\vdots \\\\ 0 & \\ldots & \\det(U)\\end{pmatrix}.
 ```
 
 
@@ -398,14 +398,14 @@ end
 
 """
 For ``n`` bits, with the corresponding decimal sequence ``x=0,1,2,\\ldots,2^{n-1}``, find the gray ordering sequence using the bitwise `XOR` logic. Namely.
-``gπ= x ⊻ \\lfloor x/2 \\rfloor`` where ``⊻`` is the bitwise `XOR` operation.
+``gπ= x ⊻ \\lfloor x/2 \\rfloor = x \\oplus \\lfloor x/2 \\rfloor`` where ``⊻`` is the bitwise `XOR` operation.
 
 ```julia-repl
-julia> gray_order(3)
+julia> gray_ordering(3)
 [0,1,3,2,6,7,5,4]
 ```
 """
-function gray_order(n)
+function gray_ordering(n)
 	N=2^n
 	x=Int.(vcat(range(start=0,stop=N-1,step=1)))
 	y = Int.(floor.(x/2))

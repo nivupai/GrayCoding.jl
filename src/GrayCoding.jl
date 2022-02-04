@@ -312,7 +312,7 @@ Using the following property,
 ```
 
 ```math
-\\prod_{i=1}^{n-1} \\prod_{j=0}^{n-1-i}{ {}^{i}G_{n-j,n-j-1} U(n)}  = \\begin{pmatrix} 1 & \\ldots & 0 \\\\ \\vdots & \\ddots & \\vdots \\\\ 0 & \\ldots & \\det()\\end{pmatrix}
+\\prod_{i=1}^{n-1} \\prod_{j=0}^{n-1-i}{ {}^{i}G_{n-j,n-j-1} U(n)}  = \\begin{pmatrix} 1 & \\ldots & 0 \\\\ \\vdots & \\ddots & \\vdots \\\\ 0 & \\ldots & \\det(U)\\end{pmatrix}
 ```
 
 
@@ -396,6 +396,21 @@ function Gcascaded(U)
 	return Gc,Ic
 end
 
+"""
+For ``n`` bits, with the corresponding decimal sequence ``x=0,1,2,\\ldots,2^{n-1}``, find the gray ordering sequence using the bitwise `XOR` logic. Namely.
+``gπ= x ⊻ \\lfloor x/2 \\rfloor`` where ``⊻`` is the bitwise `XOR` operation.
 
+```julia-repl
+julia> gray_order(3)
+[0,1,3,2,6,7,5,4]
+```
+"""
+function gray_order(n)
+	N=2^n
+	x=Int.(vcat(range(start=0,stop=N-1,step=1)))
+	y = Int.(floor.(x/2))
+	gπ=[x[i] ⊻ y[i] for i=1:N]
+	return gπ
+end
 
 end

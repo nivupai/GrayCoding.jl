@@ -347,4 +347,42 @@ function Gn(A)
 	
 end
 
+"""
+For a given unitary matrix ``U``, it finds the cascaded rotation matrix ``C`` such that ``C\\times U =I``, except for the diagonal element of the ``n``th element which is ``\\det(U)``. The matrix ``C`` is obtained by the cascade of several two level Givens rotation matrices, namely,
+
+```math
+C  = \\prod_{i=1}^{n-1} \\prod_{j=0}^{n-1-i}{ {}^{i}G_{n-j,n-j-1}}
+```
+
+```math
+\\prod_{i=1}^{n-1} \\prod_{j=0}^{n-1-i}{ {}^{i}G_{n-j,n-j-1} U(n)}  = \\begin{pmatrix} 1 & \\ldots & 0 \\\\ \\vdots & \\ddots & \\vdots \\\\ 0 & \\ldots & \\det(U)\\end{pmatrix}
+```
+
+
+### Parameters 
+* U -- Input. Unitary matrix of size ``n``
+* Ic --  Identity matix with the exception that the last diagonal entry (``n``th diagonal element) which is ``\\det(U)``.
+* C -- The cascaded rotation matrix ``{}^{n-1}G_{n} \\times {}^{n-2}G_{n-1}  \\times {}^{n-2}G_{n}  \\times \\ldots  \\times {}^{2}G_{3}  \\times \\ldots  \\times {}^{2}G_{n-1}  \\times {}^{2}G_{n}   \\times {}^{1}G_{2}  \\times \\ldots  \\times {}^{1}G_{n-1}  \\times {}^{1}G_{n} ``  
+
+
+
+### Examples
+```julia-repl
+julia> using LinearAlgebra
+julia> N=4;A=rand(N,N)+im*rand(N,N);S=svd(A);U=S.U
+julia> Gc,Ic=Gcascaded(U)
+```
+"""
+function Gcascaded(U)
+	Gv=Gn(U)[3]
+	Gc=Matrix(I(4))
+	m=Int(size(Gv,1)/4)
+	for q in 0:m-1
+		Gc=Gc*Gv[1+q*4:4*(q+1),:]
+	end
+	Ic=Gc*U
+	return Gc,Ic
+end
+
+
 end

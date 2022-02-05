@@ -413,4 +413,60 @@ function gray_ordering(n)
 	return gπ
 end
 
+""" Converts a gray mapped decimal number to simple binary mapped decimal number. This routine follows the inverse mapping of the function `gray_ordering()`
+### Parameters
+* ``n`` The number of digits in the equivalent binary mapping
+* ``g`` The gray mapped decimal number
+* ``d`` The simple binary mapped decimal number
+
+```julia-repl
+julia> G2D.(0:7,3)
+[0,1,3,2,7,6,4,5]
+
+```
+
+"""
+function G2D(g::Int,n)
+	xx=gray_ordering(n) .+1
+	a=collect(1:2^n)
+	p=invperm(xx)
+	d=p[g+1]
+	return d-1
+end
+
+
+"""
+Quantum circuit decomposition. For nan arbitrary unitary matix for `k` variable.
+"""
+function sequenceΓ(k::Int64)
+ 	n=Int(2^k)
+	N=Int(n*(n-1)/2)
+	idxI=-100
+	idxJ=-100
+	m=0
+	for i=1:n-1
+		for j = n:-1:(i+1)
+			idxI=[idxI n-i]
+			idxJ=[idxJ j]
+
+		end
+	end
+	dI,dJ=Int.(idxI[2:end] .+0),Int.(idxJ[2:end] .+0)
+ 	gV=gray_ordering(k)
+
+	gJ2 = gV[dJ .- 1] .+1
+
+	gI=gV[-dI.+0 .+ n] .+1 
+
+	gJ= gV[dJ] .+1
+
+
+	ii=reverse(gI)
+	jj=reverse(gJ)
+	kk=reverse(gJ2)
+	Γ = hcat(ii,jj,kk)'
+	return ii,jj,kk,Γ
+	
+end
+
 end

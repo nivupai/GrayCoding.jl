@@ -496,4 +496,82 @@ function tiffoli_matrix()
 	return U
 end
 
+"""
+Given a matrix ``A`` (usually a unitary matrix) and indices ``(i,j,k)``, find the ``\\Gamma`` Givens rotation matrix and the Givens matrix embedding ``{}^{i}G_{j,k}(A)`` matrix.
+
+For a given matrix ``A``, a generic rotation matrix ``{}^{i}G_{j,k}(A)`` is generated. The matrix ``{}^{i}G_{j,k}(A)`` is such that it helps to selectively nullifies an element of matrix ``V={}^{i}G_{j,k}(A) A``. That is, ``V_{j,i}=0`` where ``V={}^{i}G_{j,k}(A) A``.  The fllowing Givens rotation matrix ``{}^{i}\\Gamma_{j,k}``
+
+```math
+\\begin{aligned}
+{}^{i}\\Gamma_{j,k} &= \\begin{pmatrix} {}^{i}g_{k,k} & {}^{i}g_{k,j} \\\\ {}^{i}g_{j,k} & {}^{i}g_{j,j}\\end{pmatrix} \\\\
+&=\\frac{1}{\\sqrt{\\lvert a_{j,i} \\rvert^{2}+ \\lvert a_{k,i} \\rvert^{2}}}\\begin{pmatrix} a_{k,i}^{*} & a_{j,i}^{*} \\\\ -a_{j,i} & {}^{i}a_{k,i}\\end{pmatrix}.
+\\end{aligned}
+```
+
+is embedded in an identity matrix ``I(n)`` to produce,
+```math
+{}^{i}G_{j,k}(A) = \\begin{pmatrix} 
+1 & 0 & \\ldots & \\ldots & \\ldots & \\ldots & \\ldots & \\ldots & 0 \\\\ 
+0 & 1 & \\ddots & \\ddots & \\ddots & \\ddots & \\ddots & \\ddots & \\vdots \\\\
+\\vdots & \\ddots & \\ddots & \\ddots & \\ddots & \\ddots & \\ddots & \\ddots & \\vdots \\\\
+0 & 0 & \\ddots & {\\color{red} {}^{i}g_{k,k}} & \\ddots &  {\\color{red} {}^{i}g_{k,j}} & \\ddots & \\ddots & \\vdots \\\\
+\\vdots & \\ddots & \\ddots & \\ddots & \\ddots \\ddots & & \\ddots & \\ddots & \\vdots \\\\
+0 & 0 & \\ddots & {\\color{red}  {}^{i}g_{j,k}} & \\ddots &  {\\color{red} 
+ {}^{i}g_{j,j}} & \\ddots & \\ddots & \\vdots \\\\
+\\vdots & \\ddots & \\ddots & \\ddots & \\ddots & \\ddots & \\ddots & \\ddots & \\vdots \\\\
+0 & 0 & \\ldots & \\ldots & \\ldots & \\ldots & \\ldots & 1 & 0  \\\\
+0 & 0 & \\ldots & \\ldots & \\ldots & \\ldots & \\ldots & \\ldots & 1 
+\\end{pmatrix}.
+```
+Essentially, ``{}^{i}G_{j,k}(A)`` is a modified identity matrix such that four non trivial elements are taken from the givens rotation matrix ``{}^{i}\\Gamma_{j,k}``.
+```julia-repl
+julia> using LinearAlgebra
+julia> using GrayCoding
+julia>n=2;N=2^n;A=rand(N,N)+im*rand(N,N);S=svd(A);U=S.U
+4×4 Matrix{ComplexF64}:
+ -0.365903-0.405021im   0.442293-0.0769938im  …   0.115307-0.288609im
+ -0.285173-0.35669im   -0.671764+0.0698449im     -0.384583+0.295428im
+ -0.196831-0.611652im  -0.154487+0.0160399im      0.379159-0.121825im
+ -0.177839-0.221435im   0.536228-0.175044im      -0.338822+0.62835im
+julia> i,j,k=1,2,4
+julia> Γ,G,GA=quantumΓ(U,i,j,k);
+julia> round.(quantumΓ(S.U,1,2,4)[1],digits=1)
+2×2 Matrix{ComplexF64}:
+ -0.3+0.4im  -0.5+0.7im
+  0.5+0.7im  -0.3-0.4im
+julia> round.(quantumΓ(S.U,1,2,4)[2],digits=1)
+4×4 Matrix{ComplexF64}:
+ 1.0+0.0im   0.0+0.0im  0.0+0.0im   0.0+0.0im
+ 0.0+0.0im  -0.3-0.4im  0.0+0.0im   0.5+0.7im
+ 0.0+0.0im   0.0+0.0im  1.0+0.0im   0.0+0.0im
+ 0.0+0.0im  -0.5+0.7im  0.0+0.0im  -0.3+0.4im
+julia> round.(quantumΓ(S.U,1,2,4)[3],digits=1)
+4×4 Matrix{ComplexF64}:
+ -0.4-0.4im   0.4-0.1im   0.6+0.1im   0.1-0.3im
+  0000000     0.7+0.5im  -0.2-0.4im  -0.3+0.2im
+ -0.2-0.6im  -0.2+0.0im  -0.4-0.5im   0.4-0.1im
+  0.5+0.0im   0.2-0.2im  -0.2-0.1im  -0.1-0.8im
+```
+
+"""
+function quantumΓ(A,i,j,k)
+	n = size(A,2)
+	G = Matrix(1.0I(n).+0im)
+	α = A[k,i]
+	β = A[j,i]
+	
+	Γ0 = [ α' β'
+	      -β  α ]
+	N = norm(Γ0[1,:],2);
+	Γ = Γ0./N
+
+    # Embed the Givens matrix Γ in G
+	G[k,k] = Γ[1,1]
+	G[k,j] = Γ[1,2]
+	G[j,k] = Γ[2,1]
+	G[j,j] = Γ[2,2]
+	
+	return Γ,G,G*A
+end
+
 end

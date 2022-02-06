@@ -436,7 +436,11 @@ end
 
 
 """
-Quantum circuit decomposition. For nan arbitrary unitary matix for ``n`` qubits. Arbitrary quantum circuit abstracted by unitary matrix ``U``  decomposed by ``2^{n-1}2^{n}`` unitary two-level matrices, each of which corresponds ``{}^{i}\\Gamma_{j,k}``. The program produce the ``\\Gamma`` matrix and the coefficients ``i,j,k``. The quantum circuit of this decomposition can be visualized as a cascade (from left to right) of this matrix.
+Quantum circuit decomposition. For nan arbitrary unitary matix for ``n`` qubits. 
+Arbitrary quantum circuit abstracted by unitary matrix ``U``  decomposed by ``2^{n-1}2^{n}`` 
+unitary two-level matrices, each of which corresponds ``{}^{i}\\Gamma_{j,k}``. 
+The program produce the ``\\Gamma`` matrix and the coefficients ``i,j,k``. The quantum 
+circuit of this decomposition can be visualized as a cascade (from left to right) of this matrix.
 """
 function sequenceΓ(k::Int64)
  	n=Int(2^k)
@@ -467,6 +471,29 @@ function sequenceΓ(k::Int64)
 	Γ = hcat(ii,jj,kk)'
 	return ii,jj,kk,Γ
 	
+end
+
+"""
+The unitary matrix ``U`` corresponding to of the 3 quibit Tiffoli quantum gate
+
+```math
+U=\\begin{pmatrix}
+1 & 0 & 0 & 0 & 0 & 0 & 0 & 0 \\\\
+0 & 1 & 0 & 0 & 0 & 0 & 0 & 0 \\\\
+0 & 0 & 1 & 0 & 0 & 0 & 0 & 0 \\\\
+0 & 0 & 0 & 1 & 0 & 0 & 0 & 0 \\\\
+0 & 0 & 0 & 0 & 1 & 0 & 0 & 0 \\\\
+0 & 0 & 0 & 0 & 0 & 1 & 0 & 0 \\\\
+0 & 0 & 0 & 0 & 0 & 0 & 0 & 1 \\\\
+0 & 0 & 0 & 0 & 0 & 0 & 1 & 0 \\\\
+\\end{pmatrix}
+```
+"""
+function tiffoli_matrix()
+	U=Matrix(I(8))
+	U[8,8]=U[7,7]=0
+	U[8,7]=U[7,8]=1
+	return U
 end
 
 end

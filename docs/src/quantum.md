@@ -37,3 +37,5 @@ In terms of Gray matrix, we can also simply express this as,
 ---
 The simplest CNOT gate is the single qubit controlled CNOT discussed above, which can be explicitly denoted as ``C^{1}\text{NOT}``. Generalization of this to multi quibit controlled CNOT, denoted by ``C^{n-1}\text{NOT}``.
 ---
+
+In quantum circuit design, applying a rotation for which the binary represen- tations of i − 1 and j − 1 differ in a single bit can be accomplished by a single fully-controlled one-qubit rotation (a particular Givens rotation) and hence costs a small number of gates. All other rotations require a permutation of data before the rotation is applied and thus should be avoided.

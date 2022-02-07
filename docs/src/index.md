@@ -63,7 +63,7 @@ author = {
 title  = {GrayCoding.jl: Algebra of Gray Coding and Applications},
 month  = {1},
 year   = {2022},
-doi    = {},
+doi    = {10.5281/zenodo.5989996},
 url    = {https://github.com/nivupai/GrayCoding.jl}
 }
 ```

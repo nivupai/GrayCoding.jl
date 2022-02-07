@@ -86,3 +86,16 @@ The simplest CNOT gate is the single qubit controlled CNOT discussed above, whic
 ---
 
 In quantum circuit design, applying a rotation for which the binary representations of i − 1 and j − 1 differ in a single bit can be accomplished by a single fully-controlled one-qubit rotation (a particular Givens rotation) and hence costs a small number of gates. All other rotations require a permutation of data before the rotation is applied and thus should be avoided.
+
+### Generic U decomposion 
+#### Examples: 3 cubit generic quantum gate
+
+```julia-repl
+julia> A1,A2,A3,A4=sequenceΓ(3);
+julia> A4
+3×28 adjoint(::Matrix{Int64}) with eltype Int64:
+ 6  8  8  7  7  7  3  3  3  3  4  4  4  4  4  2  2  2  2  2  2  1  1  1  1  1  1  1
+ 5  6  5  8  6  5  7  8  6  5  3  7  8  6  5  4  3  7  8  6  5  2  4  3  7  8  6  5
+ 6  8  6  7  8  6  3  7  8  6  4  3  7  8  6  2  4  3  7  8  6  1  2  4  3  7  8  6
+```
+![](./assets/fig_quantum_decomposition_example3.png)

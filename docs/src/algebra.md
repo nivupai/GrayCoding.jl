@@ -24,9 +24,7 @@ q-1-g_{i} , & \text{if} \mod\left(\displaystyle \sum_{j=1}^{i-1}{g_{j}},2\right)
 
 and ``d_{1} = g_{1}``.
 
-## Example: Binary Code 
 
-![](./assets/fig_gray_algebra_binary.png)
 
 # Linear Algebraic Formulation (N.Rethnakar 2020)
 Example of generator matrix ``G`` for binary to gray mapping is given by,
@@ -52,6 +50,9 @@ G=\begin{pmatrix} 1 &  {\color{gray}0}   &  {\color{gray}0}  &  {\color{gray}0} 
 1 &  1 &  1 & 1  &  1  & 1 \end{pmatrix}
 ```
 
+## Illustration of Binary Code 
+
+![](./assets/fig_gray_algebra_binary.png)
 
 ### Generalized ``q``-ry Gray Code
 

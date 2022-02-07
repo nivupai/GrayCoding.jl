@@ -12,6 +12,8 @@ Encoding and Decooding of Gray codes can be treated as a special case of algebra
 * Encoding: ``g=G*b ``
 * Decoding: ``b=B*g ``
 
+![](./docs/src/assets/fig_gray_algebra_binary.png)
+
 !!! tip
     This is still under active devlopment.
 

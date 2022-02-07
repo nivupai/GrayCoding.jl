@@ -27,6 +27,48 @@ Encoding and Decooding of Gray codes can be treated as a special case of algebra
 
 There are few ways to get started with GrayCoding:
 
+## Installation
+
+Open a Julia session and enter
+
+```julia
+using Pkg; Pkg.add("GrayCoding")
+```
+
+this will download the package and all the necessary dependencies for you. Next you can import the package with
+
+```julia
+using GrayCoding
+```
+
+and you are ready to go.
+
+## Quickstart
+
+```julia
+using GrayCoding
+```
+
+
+
+
+## Citation
+
+If you use this package in your work, please cite it as
+```
+@software{nrethnakar2022GrayAlgebra,
+author = {
+            Nivedita Rethnakar 
+         },
+title  = {GrayCoding.jl: Algebra of Gray Coding and Applications},
+month  = {1},
+year   = {2022},
+doi    = {},
+url    = {https://github.com/nivupai/GrayCoding.jl}
+}
+```
+
+
 * Read TBD.
 
 

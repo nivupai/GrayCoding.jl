@@ -74,7 +74,8 @@ G=\begin{pmatrix} 1 &  {\color{gray}0}  &  {\color{gray}0}  &  {\color{gray}0}  
 
 ## Gray Encoding as Differentiation
 Encoding matrix operation act as a forward discrete differentiation operation in ``\mathbb{F}_{q}``.
-![](./assets/ig_wheel_bin2gray.png)
+
+![](./assets/fig_wheel_bin2gray.png)
 
 ## Gray Decoding as Integrator
-![](./assets/ig_wheel_gray2bin.png)
+![](./assets/fig_wheel_gray2bin.png)

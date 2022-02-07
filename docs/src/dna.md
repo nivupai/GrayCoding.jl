@@ -4,7 +4,7 @@
 
 ![](./assets/fig_dna_gray_map.png)
 
-## Codong matrix mapping
+## Codon matrix mapping
 ![](./assets/fig_dna_codon_matrix.png)
 
 

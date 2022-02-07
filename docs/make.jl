@@ -19,6 +19,8 @@ makedocs(;
         "Applications" => [
             "List of Applications" => "applications.md",
             "Quantum Algorithms and Circuits" => "quantum.md"
+            "QAM modulation in WiFi communications" => "wireless.md"
+            "DNA Coding" => "dna.md"
         ],
         "Tutorials" => "tutorials.md",
     ],

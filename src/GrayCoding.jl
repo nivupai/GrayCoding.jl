@@ -3,6 +3,8 @@ module GrayCoding
 using LinearAlgebra
 using Gadfly
 
+export πmatrix
+
 # Write your package code here.
 """
 Generate Encoding and Decoding matrices for Gray Codes of alphabet.
@@ -489,7 +491,7 @@ U=\\begin{pmatrix}
 \\end{pmatrix}
 ```
 """
-function tiffoli_matrix()
+function toffoli_matrix()
 	U=Matrix(I(8))
 	U[8,8]=U[7,7]=0
 	U[8,7]=U[7,8]=1
@@ -572,6 +574,53 @@ function quantumΓ(A,i,j,k)
 	G[j,j] = Γ[2,2]
 	
 	return Γ,G,G*A
+end
+
+
+"""
+Permutation matrix ``P`` which when operated on the right will swap columns ``(k,n)``. When operated n the left the rows ``(k,n)`` will get swapped. Permutation matrices are derived from identity matrix by swapping one column (also results in one row swap). 
+##### Arguments
+* ``n`` -- order of the matrix (square matrix of size ``n \\times n``)
+* ``k,m`` -- column indices ``1 \\ge (k,m) \\ge n``. When ``k,m`` is a vector, multiple rows/columns gets swapped when operated on left/right. 
+##### Examples
+```julia-repl
+julia> πmatrix(6,[2,3],[5,6])
+6×6 Matrix{Float64}:
+ 1.0  0.0  0.0  0.0  0.0  0.0
+ 0.0  0.0  0.0  0.0  1.0  0.0
+ 0.0  0.0  0.0  0.0  0.0  1.0
+ 0.0  0.0  0.0  1.0  0.0  0.0
+ 0.0  1.0  0.0  0.0  0.0  0.0
+ 0.0  0.0  1.0  0.0  0.0  0.0
+julia> A= rand(4,4)
+4×4 Matrix{Float64}:
+ 0.335342   0.880332  0.747449  0.886538
+ 0.0326128  0.648394  0.87131   0.386876
+ 0.876305   0.215459  0.247227  0.100161
+ 0.707862   0.992129  0.411607  0.995662
+julia> AA*πmatrix(4,2,4)
+4×4 Matrix{Float64}:
+ 0.335342   0.886538  0.747449  0.880332
+ 0.0326128  0.386876  0.87131   0.648394
+ 0.876305   0.100161  0.247227  0.215459
+ 0.707862   0.995662  0.411607  0.992129
+
+julia> πmatrix(4,1,3)*AA
+4×4 Matrix{Float64}:
+ 0.876305   0.215459  0.247227  0.100161
+ 0.0326128  0.648394  0.87131   0.386876
+ 0.335342   0.880332  0.747449  0.886538
+ 0.707862   0.992129  0.411607  0.995662
+```
+
+"""
+function πmatrix(n=5,k=2,m=n-1)
+M=diagm(0=>ones(n))	# I(m)
+	p=collect(1:n)
+	p[k]=m
+	p[m]=k
+	P=M[:,p]
+	return P
 end
 
 end

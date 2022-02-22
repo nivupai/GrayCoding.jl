@@ -615,12 +615,52 @@ julia> πmatrix(4,1,3)*AA
 
 """
 function πmatrix(n=5,k=2,m=n-1)
-M=diagm(0=>ones(n))	# I(m)
+	M=diagm(0=>ones(n))	# I(m)
 	p=collect(1:n)
 	p[k]=m
 	p[m]=k
 	P=M[:,p]
 	return P
+end
+
+"""
+Given an integer ``x ∈ \\mathbb{N}`` (i.e., natural number in decimal form), it performs a tensor product of the individual bits. Effectively, each of the bits in the binary representation expressed in a qubit vector gets tensor multipled. 
+The qubit to vector mapping are as follows: 
+``0 \\equiv | 0 \\rangle = \\begin{pmatrix} 1 \\\\ 0 \\end{pmatrix}`` and ``1 \\equiv | 1 \\rangle = \\begin{pmatrix} 0 \\\\ 1 \\end{pmatrix}``
+
+##### Example
+``x=13`` in binary representation is given by `` 1101 ``. Thus ``|13 \\rangle \\equiv |1101\\rangle=|1\\rangle \\otimes |1\\rangle \\otimes |0\\rangle \\otimes |1\\rangle``.
+```math
+\\begin{aligned}
+|13 \\rangle &\\equiv |1101\\rangle \\\\
+&=|1\\rangle \\otimes |1\\rangle \\otimes |0\\rangle \\otimes |1\\rangle \\\\
+&= \\begin{pmatrix} 0 \\\\ 1 \\end{pmatrix} \\otimes \\begin{pmatrix} 0 \\\\ 1 \\end{pmatrix} \\otimes \\begin{pmatrix} 1 \\\\ 0 \\end{pmatrix} \\otimes \\begin{pmatrix} 0 \\\\ 1 \\end{pmatrix} \\\\
+&= \\begin{pmatrix} 0 \\\\ 0 \\\\ 0 \\\\ 1 \\end{pmatrix} \\otimes \\begin{pmatrix} 0 \\\\ 1 \\\\ 0 \\\\ 0 \\end{pmatrix} \\\\
+&= \\begin{pmatrix} 0 & 0 & 0 & 0 & 0 & 0 & 0 & 0 & 0 & 0 & 0 & 0 & 1 & 0 & 0 \\end{pmatrix}^{\\top}
+
+\\end{aligned}
+```
+```julia-repl
+julia> dket(13)
+[0,0,0,0,0,0,0,0,0,0,0,0,0,1,0,0]
+
+julia> dket(5,n=2)
+[0,0,0,0,0,1,0,0]
+
+```
+"""
+function dket(x::Int64;n=2)
+	
+	if x ==0
+		y=[1,0]
+	else
+		bv=reverse(digits(x,base=2,pad=max(Int(ceil(log2(x))),n)))
+    	y=1
+		for b in bv
+			y = kron(y,ket(b))
+		end
+	end
+	return y
 end
 
 end

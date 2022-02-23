@@ -621,7 +621,7 @@ julia> πmatrix(4,1,3)*AA
 		R8[[2,5],[2,5]]
 		Q8[[7,8],[7,8]]
 	end
-````
+```
 
 """
 function πmatrix(n=5,k=2,m=n-1)

@@ -612,6 +612,16 @@ julia> πmatrix(4,1,3)*AA
  0.335342   0.880332  0.747449  0.886538
  0.707862   0.992129  0.411607  0.995662
 ```
+```
+#### Test
+```julia
+	begin
+		R8=rand(8,8)
+		Q8=πmatrix(8,2,7)*πmatrix(8,5,8)*R8*πmatrix(8,2,7)*πmatrix(8,5,8) 
+		R8[[2,5],[2,5]]
+		Q8[[7,8],[7,8]]
+	end
+````
 
 """
 function πmatrix(n=5,k=2,m=n-1)
@@ -640,6 +650,8 @@ The qubit to vector mapping are as follows:
 
 \\end{aligned}
 ```
+Turns out that this effectively result in a lone non zero entry at the index ``13`` when counted from ``0`` to ``2^n``.
+
 ```julia-repl
 julia> dket(13)
 [0,0,0,0,0,0,0,0,0,0,0,0,0,1,0,0]
@@ -647,7 +659,7 @@ julia> dket(13)
 julia> dket(5,n=2)
 [0,0,0,0,0,1,0,0]
 
-```
+
 """
 function dket(x::Int64;n=2)
 	

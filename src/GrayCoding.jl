@@ -675,4 +675,65 @@ function dket(x::Int64;n=2)
 	return y
 end
 
+
+"""
+Generates the unitary matrix corresponding to a one qubit operation at a specified bit, acting on an ``n-`` register.
+
+A one-qubit gate ``U_2 \\in SU(2)`` acting on ``k``th qubit in an ``n-`` qubit register correspond to a unitary matrix ``U \\in SU(2^n) = \\mathbb{I}_{2}^{\\otimes k} \\otimes U_{2} \\otimes \\mathbb{I}_{2}^{\\otimes n-k}``.
+
+The unitary matrix 
+```math
+U_2 = \\begin{pmatrix} \\acute{a} & \\acute{b} \\\\ -\\acute{b}^{*} & \\acute{a}^{*}\\end{pmatrix} = \\frac{1}{\\lvert a \\rvert^{2}+\\lvert b \\rvert^{2}}\\begin{pmatrix} a & b \\\\ -b^{*} & a^{*}\\end{pmatrix}
+```. Here ``a,b \\in \\mathbb{C}, \\lvert \\acute{a} \\rvert^{2}+\\lvert \\acute{b} \\rvert^{2}=1
+`` 
+is the embedded single qubit operation.
+
+#### Arguments
+* a,b 	- Elements of ``U_2 = \\begin{pmatrix} \\acute{a} & \\acute{b} \\\\ -\\acute{b}^{*} & \\acute{a}^{*}\\end{pmatrix} = \\frac{1}{\\lvert a \\rvert^{2}+\\lvert b \\rvert^{2}}\\begin{pmatrix} a & b \\\\ -b^{*} & a^{*}\\end{pmatrix}``. Here ``a,b \\in \\mathbb{C}, \\lvert \\acute{a} \\rvert^{2}+\\lvert \\acute{b} \\rvert^{2}=1``.
+* n     -- Number of registers ``n \\in \\mathbb{N} ``
+* k     -- The position of the qubit ``1 \\le k \\le n , k \\in \\mathbb{N} ``
+* U    -- Output ``U_2 \\in SU(2^n)``
+
+#### Dependency
+Uses the Kronecker.jl package 
+
+
+```julia-repl
+julia> oneQubitU(7+3im,1-2im,3,1)
+8×8 Matrix{ComplexF64}:
+  0.9+0.4im   0.0+0.0im   .0+0.0im   .0+0.0im  …  .0-0.0im  .0-0.0im  0.0-.0im
+  0.0+0.0im   0.9+0.4im   .0+0.0im   .0+0.0im     .1-0.3im  .0-0.0im  0.0-.0im
+  0.0+0.0im   0.0+0.0im   .9+0.4im   .0+0.0im     .0-0.0im  .1-0.3im  0.0-.0im
+  0.0+0.0im   0.0+0.0im   .0+0.0im   .9+0.4im     .0-0.0im  .0-0.0im  0.1-.3im
+ -0.1-0.3im  -0.0-0.0im  -.0-0.0im  -.0-0.0im     .0-0.0im  .0-0.0im  0.0-.0im
+ -0.0-0.0im  -0.1-0.3im  -.0-0.0im  -.0-0.0im  …  .9-0.4im  .0-0.0im  0.0-.0im
+ -0.0-0.0im  -0.0-0.0im  -.1-0.3im  -.0-0.0im     .0-0.0im  .9-0.4im  0.0-.0im
+ -0.0-0.0im  -0.0-0.0im  -.0-0.0im  -.1-0.3im     .0-0.0im  .0-0.0im  0.9-.4im
+
+julia> oneQubitU(3,4,3,2) 
+8×8 Matrix{Float64}:
+  0.6   0.0  0.8  0.0   0.0   0.0  0.0  0.0
+  0.0   0.6  0.0  0.8   0.0   0.0  0.0  0.0
+ -0.8  -0.0  0.6  0.0  -0.0  -0.0  0.0  0.0
+ -0.0  -0.8  0.0  0.6  -0.0  -0.0  0.0  0.0
+  0.0   0.0  0.0  0.0   0.6   0.0  0.8  0.0
+  0.0   0.0  0.0  0.0   0.0   0.6  0.0  0.8
+ -0.0  -0.0  0.0  0.0  -0.8  -0.0  0.6  0.0
+ -0.0  -0.0  0.0  0.0  -0.0  -0.8  0.0  0.6
+```
+
+"""
+function oneQubitU(a,b,n,k)
+	U0=[a b;-b' a']
+	U2= U0./norm([a b])
+	
+	L  = (k-1 <= 1) ? I(2) : I(2) ⊗ (k-1)
+	R  = (n-k <= 1) ? I(2) : I(2) ⊗ (n-k)
+	UL = (k-1 > 0) ? L⊗U2 : U2
+	UR = (n-k > 0) ? UL⊗R : UL
+	
+	U= Matrix(UR)
+
+end
+
 end
